@@ -1,8 +1,5 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-dark.png">
-    <img src="./assets/logo.png" alt="OpenSpec Assistant" width="360">
-  </picture>
+  <img src="./assets/project-hero.png" alt="OpenSpec Assistant - spec-driven AI coding workflow" width="100%">
 </p>
 
 <p align="center">
