@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+loadLocalEnv();
+
 const apiBase = process.env.TAPD_API_BASE || 'https://api.tapd.cn';
 const apiUser = process.env.TAPD_API_USER;
 const apiPassword = process.env.TAPD_API_PASSWORD;
@@ -221,4 +227,28 @@ function writeResult(id, result) {
 
 function writeError(id, code, message) {
   process.stdout.write(`${JSON.stringify({ jsonrpc: '2.0', id, error: { code, message } })}\n`);
+}
+
+function loadLocalEnv() {
+  const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+  const candidates = [
+    path.join(process.cwd(), '.tapd.env.local'),
+    path.join(scriptDir, '..', '.tapd.env.local'),
+  ];
+
+  for (const envPath of candidates) {
+    if (!fs.existsSync(envPath)) continue;
+    const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const separator = trimmed.indexOf('=');
+      if (separator === -1) continue;
+      const key = trimmed.slice(0, separator).trim();
+      const value = trimmed.slice(separator + 1).trim();
+      if (key && process.env[key] === undefined) {
+        process.env[key] = value;
+      }
+    }
+  }
 }

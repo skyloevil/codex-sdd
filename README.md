@@ -112,6 +112,8 @@ TAPD_API_PASSWORD=your_tapd_api_password
 
 `.tapd.env.local` is ignored by git. For Codex plugin usage, provide the same variables through your shell environment, personal Codex MCP configuration, or another local secret mechanism available to your Codex runtime.
 
+The bundled TAPD MCP adapter also attempts to load `.tapd.env.local` from the current project root and from the OpenSpec Assistant plugin root. If another project cannot see `tapd-requirement:fetch_story`, reload Codex MCP servers after updating the plugin and confirm that the plugin MCP server is exposed in that session. If the tool is visible but fails with missing credentials, the MCP process cannot see `TAPD_API_USER` or `TAPD_API_PASSWORD`.
+
 After reloading Codex MCP servers, trigger proposal generation with a TAPD story URL:
 
 ```text
