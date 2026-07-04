@@ -45,7 +45,7 @@ import type { ArtifactId, GateMode, HookKind, HookStatus, HumanGate, HumanReview
 
 const server = new Server(
   {
-    name: 'codex-sdd-loop',
+    name: 'codex-sdd',
     version: '0.3.0',
   },
   {
@@ -69,7 +69,7 @@ const workDirSchema = {
 const TOOL_DEFINITIONS = [
   {
     name: 'openspec_detect_layout',
-    description: 'Scan the project for Codex SDD Loop dirs, changes, files, and state.',
+    description: 'Scan the project for Codex SDD dirs, changes, files, and state.',
     inputSchema: { type: 'object', properties: { workDir: workDirSchema, response_format: responseFormatSchema } },
   },
   {
@@ -693,7 +693,7 @@ async function dispatchTool(name: string, args: Record<string, unknown>, project
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('Codex SDD Loop MCP server started on stdio');
+  console.error('Codex SDD MCP server started on stdio');
 }
 
 main().catch((error) => {

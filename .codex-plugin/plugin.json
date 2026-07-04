@@ -1,5 +1,5 @@
 {
-  "name": "codex-sdd-loop",
+  "name": "codex-sdd",
   "version": "0.3.2",
   "description": "Spec-driven loop engineering runtime for Codex: propose, plan, implement, validate, archive, and continue with evidence.",
   "author": {
@@ -21,9 +21,9 @@
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "Codex SDD Loop",
+    "displayName": "Codex SDD",
     "shortDescription": "Spec-driven loop engineering runtime for Codex",
-    "longDescription": "Codex SDD Loop transforms AI coding from one-shot code generation into a structured, auditable loop engineering workflow.\n\n**Workflow**:\n1. **Propose** -- Generate change-scoped proposal artifacts under openspec/changes/<changeId>\n2. **Plan** -- Create specs, design, tasks, verification, and implementation notes from schema templates\n3. **Implement** -- Execute tasks with automatic progress tracking\n4. **Validate** -- Check artifact, task, hook, evidence, and spec-vs-code drift\n5. **Archive** -- Store change artifacts and accumulate knowledge base\n\n**Key Features**:\n- Goal-compatible loop runtime with status, blockers, evidence, and human reviews\n- Human-in-the-loop at critical gates (scope, design, validation, archive, destructive changes), auto-pilot for routine steps\n- Persistent multi-change state tracking -- resume interrupted workflows without re-explaining\n- Customizable config, schema templates, and hook points for injecting MCP tools and skills per team workflow\n- Archive knowledge accumulation across projects",
+    "longDescription": "Codex SDD transforms AI coding from one-shot code generation into a structured, auditable loop engineering workflow.\n\n**Workflow**:\n1. **Propose** -- Generate change-scoped proposal artifacts under openspec/changes/<changeId>\n2. **Plan** -- Create specs, design, tasks, verification, and implementation notes from schema templates\n3. **Implement** -- Execute tasks with automatic progress tracking\n4. **Validate** -- Check artifact, task, hook, evidence, and spec-vs-code drift\n5. **Archive** -- Store change artifacts and accumulate knowledge base\n\n**Key Features**:\n- Goal-compatible loop runtime with status, blockers, evidence, and human reviews\n- Human-in-the-loop at critical gates (scope, design, validation, archive, destructive changes), auto-pilot for routine steps\n- Persistent multi-change state tracking -- resume interrupted workflows without re-explaining\n- Customizable config, schema templates, and hook points for injecting MCP tools and skills per team workflow\n- Archive knowledge accumulation across projects",
     "developerName": "ZITIAN ZHAO",
     "category": "Developer Tools",
     "capabilities": [
@@ -31,9 +31,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use Codex SDD Loop to start a new feature proposal",
-      "Show the current Codex SDD Loop change status",
-      "Continue the current Codex SDD Loop implementation"
+      "Use Codex SDD to start a new feature proposal",
+      "Show the current Codex SDD change status",
+      "Continue the current Codex SDD implementation"
     ],
     "brandColor": "#2563EB",
     "composerIcon": "./assets/icon.png",

@@ -1,5 +1,5 @@
 ---
-name: codex-sdd-loop:propose
+name: codex-sdd:propose
 description: Generate structured proposal.md from user requirements, defining scope, constraints, and acceptance criteria. First phase of OpenSpec workflow.
 ---
 
@@ -68,7 +68,7 @@ Ask the user to confirm the scope with a clear yes/no question:
 ### Step 6: After Confirmation
 Once scope is confirmed:
 1. Call `openspec_set_gate({ gate: "scope", confirmed: true })`
-2. Tell the user they can continue with `codex-sdd-loop:continue`
+2. Tell the user they can continue with `codex-sdd:continue`
 
 ## Output
 - `openspec/changes/<changeId>/proposal.md` — Structured proposal document

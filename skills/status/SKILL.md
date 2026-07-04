@@ -1,13 +1,13 @@
 ---
-name: codex-sdd-loop:status
-description: Restore Codex SDD Loop context and show active change, gates, next action, pending hooks, and archives.
+name: codex-sdd:status
+description: Restore Codex SDD context and show active change, gates, next action, pending hooks, and archives.
 ---
 
 # OpenSpec Status
 
 ## Context
 Status is the recovery entry point. Use it when the user asks what is active,
-what is blocked, or how to resume a Codex SDD Loop workflow.
+what is blocked, or how to resume a Codex SDD workflow.
 
 ## Workflow
 1. Call `openspec_get_status`.

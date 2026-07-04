@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "codex-sdd-loop": {
+    "codex-sdd": {
       "command": "node",
       "args": ["./mcp-server/dist/index.js"],
       "cwd": ".",

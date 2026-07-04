@@ -1,7 +1,7 @@
-<h1 align="center">Codex SDD Loop</h1>
+<h1 align="center">Codex SDD</h1>
 
 <p align="center">
-  <img src="./assets/project-hero.png" alt="Codex SDD Loop - spec-driven AI coding workflow" width="100%">
+  <img src="./assets/project-hero.png" alt="Codex SDD - spec-driven AI coding workflow" width="100%">
 </p>
 
 <p align="center">
@@ -17,9 +17,9 @@
 
 ---
 
-## What is Codex SDD Loop?
+## What is Codex SDD?
 
-Codex SDD Loop is a Codex plugin that brings spec-driven development and loop engineering into everyday AI-assisted engineering. Instead of jumping directly from a prompt to code, it keeps every change inside a traceable workflow with a goal-compatible runtime:
+Codex SDD is a Codex plugin that brings spec-driven development and loop engineering into everyday AI-assisted engineering. Instead of jumping directly from a prompt to code, it keeps every change inside a traceable workflow with a goal-compatible runtime:
 
 1. **Propose** - clarify scope, background, out-of-scope work, and acceptance criteria.
 2. **Plan** - generate specs, design notes, task lists, verification plans, and implementation notes.
@@ -62,8 +62,8 @@ Install the plugin from the Codex app:
 1. Open the cloned `codex-sdd` folder as a project in the Codex app.
 2. Restart Codex so it picks up the repository marketplace at `.agents/plugins/marketplace.json`.
 3. Open **Plugins** in the sidebar.
-4. Select the **Codex SDD Loop** marketplace/source.
-5. Open **Codex SDD Loop** and choose **Add to Codex**.
+4. Select the **Codex SDD** marketplace/source.
+5. Open **Codex SDD** and choose **Add to Codex**.
 6. Start a new Codex thread so the plugin skills and MCP tools load.
 
 The repository is self-contained as a local Codex marketplace. The marketplace file is in
@@ -75,7 +75,7 @@ MCP server configuration is in `.mcp.json`.
 Start with a request in Codex:
 
 ```text
-Use Codex SDD Loop to propose: Add user avatar upload
+Use Codex SDD to propose: Add user avatar upload
 ```
 
 The workflow creates a change directory like this:
@@ -97,24 +97,24 @@ docs/knowledge/
 After the proposal is reviewed, continue the flow:
 
 ```text
-Use Codex SDD Loop to plan this change
-Use Codex SDD Loop to implement the next task
-Use Codex SDD Loop to validate the current change
-Use Codex SDD Loop to archive the completed change
+Use Codex SDD to plan this change
+Use Codex SDD to implement the next task
+Use Codex SDD to validate the current change
+Use Codex SDD to archive the completed change
 ```
 
 You can also recover context at any point:
 
 ```text
-Use Codex SDD Loop to show status
-Use Codex SDD Loop to continue
+Use Codex SDD to show status
+Use Codex SDD to continue
 ```
 
 For loop-driven work, use the continue entry point repeatedly. The runtime will decide whether the next step is implementation, validation, hook execution, human review, archive, completion, or blocked review.
 
 ## Optional TAPD Requirement Import
 
-Codex SDD Loop includes an optional `tapd-requirement` MCP adapter that can fetch a TAPD story before proposal generation. This is useful when the source requirement lives in TAPD and the Codex prompt only contains a story URL.
+Codex SDD includes an optional `tapd-requirement` MCP adapter that can fetch a TAPD story before proposal generation. This is useful when the source requirement lives in TAPD and the Codex prompt only contains a story URL.
 
 Before using TAPD import, configure your TAPD API account and password in your local environment. Do not commit real credentials to this repository.
 
@@ -127,21 +127,21 @@ TAPD_API_PASSWORD=your_tapd_api_password
 
 `.tapd.env.local` is ignored by git. For Codex plugin usage, provide the same variables through your shell environment, personal Codex MCP configuration, or another local secret mechanism available to your Codex runtime.
 
-The bundled TAPD MCP adapter also attempts to load `.tapd.env.local` from the current project root and from the Codex SDD Loop plugin root. If another project cannot see `tapd-requirement:fetch_story`, reload Codex MCP servers after updating the plugin and confirm that the plugin MCP server is exposed in that session. If the tool is visible but fails with missing credentials, the MCP process cannot see `TAPD_API_USER` or `TAPD_API_PASSWORD`.
+The bundled TAPD MCP adapter also attempts to load `.tapd.env.local` from the current project root and from the Codex SDD plugin root. If another project cannot see `tapd-requirement:fetch_story`, reload Codex MCP servers after updating the plugin and confirm that the plugin MCP server is exposed in that session. If the tool is visible but fails with missing credentials, the MCP process cannot see `TAPD_API_USER` or `TAPD_API_PASSWORD`.
 
 The plugin MCP configuration uses plugin-root-relative commands (`cwd: "."` with `./...` paths), so the OpenSpec and TAPD MCP tools are available from any project directory once the plugin is installed and MCP servers are reloaded.
 
 After reloading Codex MCP servers, trigger proposal generation with a TAPD story URL:
 
 ```text
-Use Codex SDD Loop to propose https://www.tapd.cn/tapd_fe/<workspace_id>/story/detail/<story_id>
+Use Codex SDD to propose https://www.tapd.cn/tapd_fe/<workspace_id>/story/detail/<story_id>
 ```
 
 The TAPD adapter parses the URL, calls the TAPD stories API, and returns normalized `proposalInput` fields for the OpenSpec proposal workflow. The raw TAPD API response is also included for custom field inspection.
 
 ## Commands and Skills
 
-Codex SDD Loop ships with focused Codex skills:
+Codex SDD ships with focused Codex skills:
 
 | Skill | Purpose |
 | --- | --- |
@@ -273,7 +273,7 @@ This file is intentionally project-local so Codex can resume an interrupted work
 Initialize a project to create the default OpenSpec workspace:
 
 ```text
-Use Codex SDD Loop to initialize this project
+Use Codex SDD to initialize this project
 ```
 
 Generated configuration lives in:
@@ -372,7 +372,7 @@ Hook results are recorded with `openspec_record_hook_result`. Required `pre_arch
 
 ## Loop Semantics
 
-Codex SDD Loop exposes a small goal-compatible runtime:
+Codex SDD exposes a small goal-compatible runtime:
 
 - `openspec_create_goal` creates or replaces the loop objective and success criteria.
 - `openspec_continue_loop` returns the next structured decision: `act`, `validate`, `run_hook`, `ask_human`, `archive`, `complete`, or `blocked`.
@@ -457,4 +457,4 @@ Contributions are welcome. Please keep changes spec-driven:
 
 ## License
 
-Codex SDD Loop is released under the [MIT License](./LICENSE).
+Codex SDD is released under the [MIT License](./LICENSE).

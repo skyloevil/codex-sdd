@@ -34,7 +34,7 @@ import { readState, writeState } from '../src/state.js';
 import { STATE_FILE } from '../src/types.js';
 
 function tmpProject(): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-sdd-loop-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-sdd-'));
   fs.writeFileSync(path.join(dir, 'package.json'), '{}\n', 'utf-8');
   return dir;
 }

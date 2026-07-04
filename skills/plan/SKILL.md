@@ -1,5 +1,5 @@
 ---
-name: codex-sdd-loop:plan
+name: codex-sdd:plan
 description: Create design.md with technical architecture and tasks.md with executable breakdown from an approved proposal. Second phase of OpenSpec workflow.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: codex-sdd-loop:validate
+name: codex-sdd:validate
 description: Check implementation alignment with specification, detect drift between planned design and actual code. Fourth phase of OpenSpec workflow.
 ---
 

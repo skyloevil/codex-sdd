@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import { fetchTapdStory, parseTapdStoryInput } from '../src/tapd.js';
 
 function tmpProject(): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-sdd-loop-tapd-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-sdd-tapd-'));
   fs.writeFileSync(path.join(dir, 'package.json'), '{}\n', 'utf-8');
   return dir;
 }

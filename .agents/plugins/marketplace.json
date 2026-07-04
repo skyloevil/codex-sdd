@@ -1,11 +1,11 @@
 {
-  "name": "codex-sdd-loop",
+  "name": "codex-sdd",
   "interface": {
-    "displayName": "Codex SDD Loop"
+    "displayName": "Codex SDD"
   },
   "plugins": [
     {
-      "name": "codex-sdd-loop",
+      "name": "codex-sdd",
       "source": {
         "source": "local",
         "path": "./"

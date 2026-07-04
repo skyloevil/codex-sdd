@@ -1,5 +1,5 @@
 ---
-name: codex-sdd-loop:archive
+name: codex-sdd:archive
 description: Preserve change artifacts (proposal, design, tasks) into structured archive and update knowledge base. Final phase of OpenSpec workflow.
 ---
 
