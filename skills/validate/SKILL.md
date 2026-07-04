@@ -1,5 +1,5 @@
 ---
-name: codex-sdd-loop:validate
+name: codex-sdd:validate
 description: Check implementation alignment with specification, detect drift between planned design and actual code. Fourth phase of OpenSpec workflow.
 ---
 
@@ -36,6 +36,10 @@ This checks:
 - All tasks are marked complete
 - Required hooks are complete
 - Completed tasks have structured validation evidence when the loop state is active
+
+Also call `docs_check_freshness` for affected spec domains. Domain specs that do
+not include the active change should be treated as validation drift and fixed with
+`openspec_sync_specs` before archive.
 
 ### Step 2: Manual Validation Checks
 Beyond the automated checks, also verify:

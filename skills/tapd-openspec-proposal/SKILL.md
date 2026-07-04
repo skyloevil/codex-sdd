@@ -1,5 +1,5 @@
 ---
-name: codex-sdd-loop:tapd-openspec-proposal
+name: codex-sdd:tapd-openspec-proposal
 description: Fetch TAPD story requirements before OpenSpec proposal generation. Use when the user asks OpenSpec propose with a TAPD story URL/id, says to import TAPD requirements, or asks to generate proposal.md from TAPD.
 ---
 
@@ -7,7 +7,7 @@ description: Fetch TAPD story requirements before OpenSpec proposal generation. 
 
 ## Overview
 
-Use `openspec_fetch_tapd_story` from the main `codex-sdd-loop` MCP server to fetch TAPD story content before calling `openspec_create_change`. In older installations that do not expose this tool, fall back to the project-local `tapd-requirement:fetch_story` MCP server. Treat TAPD as source material for scope, background, constraints, out-of-scope notes, and acceptance criteria.
+Use `openspec_fetch_tapd_story` from the main `codex-sdd` MCP server to fetch TAPD story content before calling `openspec_create_change`. In older installations that do not expose this tool, fall back to the project-local `tapd-requirement:fetch_story` MCP server. Treat TAPD as source material for scope, background, constraints, out-of-scope notes, and acceptance criteria.
 
 ## Workflow
 
