@@ -738,7 +738,8 @@ export function searchDocs(
   projectRoot: string,
   options: { query: string; layers?: DocsLayer[]; limit?: number },
 ): { query: string; results: Array<{ path: string; layer: DocsLayer; preview: string }> } {
-  const terms = options.query.toLowerCase().split(/\s+/).filter(Boolean);
+  const query = options.query || '';
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
   const layers: DocsLayer[] = options.layers?.length ? options.layers : ['openspec', 'generated', 'reviewed', 'knowledge'];
   const roots: Record<DocsLayer, string[]> = {
     openspec: [`${DEFAULT_OPENSPEC_DIR}/specs`, `${DEFAULT_OPENSPEC_DIR}/project.md`, `${DEFAULT_OPENSPEC_DIR}/AGENTS.md`],
