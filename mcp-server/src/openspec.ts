@@ -824,6 +824,10 @@ function activeChangeSpecContent(projectRoot: string, change: ChangeState): stri
   return readFileSafe(safeJoin(projectRoot, change.paths.specs)) || '';
 }
 
+function hasSourceChangeMarker(content: string, changeId: string): boolean {
+  return new RegExp(`^Source change:\\s*${escapeRegex(changeId)}\\s*$`, 'm').test(content);
+}
+
 export function checkDocsFreshness(
   projectRoot: string,
   options: { domains?: string[]; changeId?: string } = {},
@@ -835,10 +839,14 @@ export function checkDocsFreshness(
   const current: Array<{ domain: string; path: string }> = [];
   for (const domain of domains) {
     const specPath = `${DEFAULT_OPENSPEC_DIR}/specs/${domain}/spec.md`;
+    if (change && !change.paths.specs) {
+      current.push({ domain, path: specPath });
+      continue;
+    }
     const content = readFileSafe(safeJoin(projectRoot, specPath));
     if (!content) {
       stale.push({ domain, reason: 'Main domain spec is missing.', path: specPath });
-    } else if (change && !content.includes(`Source change: ${change.changeId}`)) {
+    } else if (change && !hasSourceChangeMarker(content, change.changeId)) {
       stale.push({ domain, reason: `Main domain spec does not include active change ${change.changeId}.`, path: specPath });
     } else {
       current.push({ domain, path: specPath });
@@ -854,15 +862,20 @@ export function syncSpecs(
   const state = readState(projectRoot);
   const change = options.changeId ? state.changes[options.changeId] : getActiveChange(state);
   if (!change) throw new Error('No active OpenSpec change. Create a change first.');
-  const delta = activeChangeSpecContent(projectRoot, change).trim();
-  if (!delta) throw new Error('Active change has no specs artifact to sync.');
   const domains = options.domains?.length ? options.domains : ['general'];
   const updated: Array<{ domain: string; path: string }> = [];
   const skipped: Array<{ domain: string; reason: string }> = [];
+  const delta = activeChangeSpecContent(projectRoot, change).trim();
+  if (!delta) {
+    return {
+      updated,
+      skipped: domains.map((domain) => ({ domain, reason: 'Active change has no specs artifact to sync.' })),
+    };
+  }
   for (const domain of domains) {
     const specPath = `${DEFAULT_OPENSPEC_DIR}/specs/${domain}/spec.md`;
     const existing = readFileSafe(safeJoin(projectRoot, specPath)) || `# ${domain} Specification\n`;
-    if (existing.includes(`Source change: ${change.changeId}`)) {
+    if (hasSourceChangeMarker(existing, change.changeId)) {
       skipped.push({ domain, reason: 'Domain spec already includes this change.' });
       continue;
     }

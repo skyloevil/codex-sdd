@@ -128,6 +128,45 @@ test('syncs change specs into domain specs and reports freshness', () => {
   assert.equal(freshness.stale.length, 0);
 });
 
+test('matches source change markers exactly when checking freshness and syncing specs', () => {
+  const root = tmpProject();
+  initProject(root);
+  const change = createChange(root, { description: 'Add user', preset: 'full' });
+  createOrUpdateArtifact(root, {
+    artifactId: 'specs',
+    content: '# User Delta\n\n## ADDED Requirements\n\n### Requirement: Add user\nThe system SHALL add users.\n',
+  });
+  fs.mkdirSync(path.join(root, 'openspec/specs/user'), { recursive: true });
+  fs.writeFileSync(
+    path.join(root, 'openspec/specs/user/spec.md'),
+    `# User Specification\n\n---\nSource change: ${change.changeId}-avatar\n\nExisting avatar change.\n`,
+    'utf-8',
+  );
+
+  const freshness = checkDocsFreshness(root, { domains: ['user'] });
+  assert.equal(freshness.stale.length, 1);
+  assert.match(freshness.stale[0].reason, /does not include active change/);
+
+  const synced = syncSpecs(root, { domains: ['user'] });
+  assert.equal(synced.updated.length, 1);
+  const mainSpec = fs.readFileSync(path.join(root, 'openspec/specs/user/spec.md'), 'utf-8');
+  assert.match(mainSpec, new RegExp(`Source change: ${change.changeId}\\n`));
+});
+
+test('skips docs freshness and spec sync for changes without specs artifacts', () => {
+  const root = tmpProject();
+  initProject(root);
+  createChange(root, { description: 'Fix login bug', preset: 'hotfix' });
+
+  const freshness = checkDocsFreshness(root, { domains: ['auth'] });
+  assert.equal(freshness.stale.length, 0);
+  assert.equal(freshness.current.length, 1);
+
+  const synced = syncSpecs(root, { domains: ['auth'] });
+  assert.equal(synced.updated.length, 0);
+  assert.deepEqual(synced.skipped, [{ domain: 'auth', reason: 'Active change has no specs artifact to sync.' }]);
+});
+
 test('migrates legacy single-change state into v2 state', () => {
   const root = tmpProject();
   fs.mkdirSync(path.join(root, '.openspec-codex'), { recursive: true });
