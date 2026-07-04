@@ -104,6 +104,20 @@ test('searches docs layers and builds a bounded context pack', () => {
   assert.match(context.content, /compatibility notes/);
 });
 
+test('stops building context after the byte budget is reached', () => {
+  const root = tmpProject();
+  initProject(root);
+  const projectContext = `# Project Context\n\n${'large project guidance '.repeat(40)}\n`;
+  fs.writeFileSync(path.join(root, 'openspec/project.md'), projectContext, 'utf-8');
+  fs.writeFileSync(path.join(root, 'openspec/AGENTS.md'), '# Agent Guidance\n\nsmall but lower priority\n', 'utf-8');
+
+  const context = buildDocsContext(root, { maxBytes: 120 });
+
+  assert.equal(context.truncated, true);
+  assert.equal(context.sources.length, 0);
+  assert.equal(context.content, '');
+});
+
 test('syncs change specs into domain specs and reports freshness', () => {
   const root = tmpProject();
   initProject(root);
@@ -160,7 +174,7 @@ test('skips docs freshness and spec sync for changes without specs artifacts', (
 
   const freshness = checkDocsFreshness(root, { domains: ['auth'] });
   assert.equal(freshness.stale.length, 0);
-  assert.equal(freshness.current.length, 1);
+  assert.equal(freshness.current.length, 0);
 
   const synced = syncSpecs(root, { domains: ['auth'] });
   assert.equal(synced.updated.length, 0);

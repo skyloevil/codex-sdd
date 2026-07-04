@@ -811,7 +811,7 @@ export function buildDocsContext(
     const bytes = Buffer.byteLength(chunk, 'utf-8');
     if (usedBytes + bytes > maxBytes) {
       truncated = true;
-      continue;
+      break;
     }
     usedBytes += bytes;
     chunks.push(chunk);
@@ -838,12 +838,11 @@ export function checkDocsFreshness(
   const domains = options.domains?.length ? options.domains : ['general'];
   const stale: Array<{ domain: string; reason: string; path: string }> = [];
   const current: Array<{ domain: string; path: string }> = [];
+  if (change && !change.paths.specs) {
+    return { stale, current };
+  }
   for (const domain of domains) {
     const specPath = `${DEFAULT_OPENSPEC_DIR}/specs/${domain}/spec.md`;
-    if (change && !change.paths.specs) {
-      current.push({ domain, path: specPath });
-      continue;
-    }
     const content = readFileSafe(safeJoin(projectRoot, specPath));
     if (!content) {
       stale.push({ domain, reason: 'Main domain spec is missing.', path: specPath });
